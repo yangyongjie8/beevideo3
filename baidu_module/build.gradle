@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release_origin {
+
+        }
+        release_privately {
+
+        }
+    }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs','../common/libs'
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api(name: 'DuerSdkLib-release', ext: 'aar')
+    api(name: 'asrlib-debug', ext: 'aar')
+
+    implementation project(':common')
+    implementation project(':assistantsdk')
+}

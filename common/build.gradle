@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "isDuer", "false"
+        }
+
+        release_origin {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "isDuer", "false"
+        }
+
+        release_privately {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "isDuer", "false"
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api(name: 'skysmartsdk', ext: 'aar')
+    api 'com.android.support:support-annotations:28.0.0'
+    api 'com.android.support:recyclerview-v7:28.0.0'
+    api 'com.android.support:support-v13:28.0.0'
+    api 'com.google.code.gson:gson:2.8.5'
+    api 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    // 一些自定义view SimpleDraweeView
+    api 'com.facebook.fresco:fresco:0.14.1'
+    api 'com.facebook.fresco:animated-gif:0.14.1'
+    api 'com.facebook.fresco:imagepipeline-okhttp3:0.14.1'
+    implementation files('libs/glide-3.7.0.jar')
+    api files('libs/bcprov-jdk15on-1.62.jar')
+    api project(':assistantsdk')
+}

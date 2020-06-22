@@ -1,0 +1,96 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+android {
+    signingConfigs {
+        ta412 {
+            keyAlias 'mykey'
+            keyPassword 'android'
+            storeFile file('ta412.keystore')
+            storePassword '888888'
+        }
+        privately {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('platform.keystore')
+            storePassword 'android'
+        }
+        origin {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "com.skyworthdigital.voice.dingdang"
+        minSdkVersion versions.minSdk
+        targetSdkVersion 26
+        
+        versionCode 10207
+        versionName "1.02.07"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi'//'armeabi-v7a'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.ta412
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            defaultConfig.versionName defaultConfig.versionName + currentTimeTail()
+        }
+
+        release_origin {
+            signingConfig signingConfigs.origin
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release_privately {
+            debuggable true
+            signingConfig signingConfigs.privately
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+}
+
+def static currentTimeTail() {
+    SimpleDateFormat sdf = new SimpleDateFormat(".MMdd_HHmm")
+    sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"))
+    return sdf.format(new Date())
+}
+
+repositories {
+    flatDir {
+        dirs 'libs','../baidu_module/libs','../common/libs'
+//        dirs 'libs','../common/libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //implementation 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    testImplementation 'junit:junit:4.12'
+    implementation 'org.robolectric:shadows-multidex:3.3.1'
+
+    api project(':tencent_module')
+    api project(':baidu_module')
+    implementation project(':common')
+}

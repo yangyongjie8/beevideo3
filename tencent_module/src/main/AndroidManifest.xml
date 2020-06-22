@@ -1,0 +1,76 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skyworthdigital.voice.tencent_module" >
+    <application>
+        <activity
+            android:name="com.skyworthdigital.voice.tencent_module.domains.poem.SkyPoemActivity"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name="com.skyworthdigital.voice.tencent_module.domains.fm.SkyAudioPlayActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.fmplay" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".domains.sports.SportsScheduleActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.sports" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".domains.sports.SportsRecordActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.sportsrecord" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".domains.flight.SearchTicketActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.flightticket" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".domains.baike.SkyBaikeVideoActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.skyworthdigital.voice.dingdang.baikevideo" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".domains.recipe.RecipeActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.recipe" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".train.TrainTicketActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.skyworthdigital.voice.dingdang.trainticket" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
